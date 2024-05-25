@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <title>Lintec Decoder - for Line-pattern carrier-screen images</title>
+    <script src="./js/adapter.js"></script>
+
+    <style>
+    <!--
+    html {
+        width: 100%;
+        height: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 0px 0px;
+    }
+
+    #decoded {
+        object-fit: contain;
+        margin: 0px 0px 0px 0px;
+        position: fixed;
+        left: 0;
+        top: 0;
+        /*width: 100%;*/
+        /*height: 100%;*/
+        /*border: 1px solid #00f;*/
+    }
+
+    video #camera {
+        /*display: none;*/
+        margin: 0px 0px 0px 0px;
+        position: fixed;
+        left: 0; top: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+        /*border: 2px solid #f00;*/
+    }
+    -->
+    </style>
+
+</head>
+<body>
+    <video id="camera" autoplay muted playsinline></video>
+    <canvas id="decoded"></canvas>
+
+    <script>
+        (function (window) {
+        "use strict";
+        
+        var document = window.document;
+        var navigator = window.navigator;
+        var requestAnimationFrame = window.self.requestAnimationFrame;
+        
+        const video = document.getElementById("camera");
+        
+        const decoded   = document.getElementById("decoded");
+        decoded.width   = window.innerWidth;
+        decoded.height  = window.innerHeight;
+        var decoded_ctx = decoded.getContext("2d");
+        
+        var offscreen     = document.createElement("canvas");
+        offscreen.width   = decoded.width;
+        offscreen.height  = decoded.height;
+        var offscreen_ctx = offscreen.getContext("2d");
+
+        
+        var interval = 3;
+        var match = location.search.match(/interval=(.*?)(&|$)/);
+        if(match) {
+            interval = decodeURIComponent(match[1]);
+        }
+        console.log("interval: " + interval);
+
+        
+        var queue = null;
+        var wait = 300;
+
+        var video_offset_x = 0;
+        var video_offset_y = 0;
+
+        function loop() {
+        
+            if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                offscreen_ctx.drawImage(video, video_offset_x, video_offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+                var src = new Image();
+                var dst = new Image();
+        
+                src = offscreen_ctx.getImageData(0, 0, offscreen.width, offscreen.height);
+                dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
+        
+                for (var y = 0; y < dst.height; y++) {
+                    for (var x = 0; x < dst.width; x++) {
+                        var yy = Math.floor(y / interval) * interval;
+                            dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+                            dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
+                            dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+                            dst.data[(y * dst.width + x) * 4 + 3] = 255;//src.data[(y * dst.width + x) * 4 + 3];
+                    }
+                }
+        
+                decoded_ctx.putImageData(dst, 0, 0);
+                //decoded_ctx.drawImage(dst, 0, 0, offscreen.width, offscreen.height);
+            }
+            requestAnimationFrame(loop);
+        }
+        
+        function startStreaming(stream) {
+        video.srcObject = stream;
+        video.play();
+        //streaming = true; // これがあるとエラーになる
+        setCanvasSize(decoded);
+
+        requestAnimationFrame(loop);
+        }
+
+        
+        function start() {
+            if (navigator.mediaDevices.getUserMedia) {
+                //alert("navigator.mediaDevices.getUserMedia");
+                let constraints = {video: {
+                    frameRate: {min: 10, ideal: 30},
+                    width: {min: 640, ideal: 1280},
+                    height: {min: 480, ideal: 720},
+                    facingMode: {exact: 'environment'}
+                }};
+
+                navigator.mediaDevices.getUserMedia(constraints)
+                .then(stream => {
+                    video.srcObject = stream;
+                    video.play();
+                    setCanvasSize(decoded);
+
+                    requestAnimationFrame(loop);
+                })
+                .catch(err => {
+                    alert("An error occured! " + err);
+                });
+            }
+        }
+        
+        start();
+    
+        // Canvasサイズをコンテナの100%に
+        function setCanvasSize(theCanvas) {
+            let innerW = window.innerWidth;
+            let innerH = window.innerHeight;
+            let videoW = video.videoWidth;
+            let videoH = video.videoHeight;
+            console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
+            console.log("video.videoWidth: " + videoW + "  video.videoHeight: " + videoH);
+
+            theCanvas.setAttribute('width', innerW);
+            theCanvas.setAttribute('height', innerH);
+            //theCanvas.setAttribute('width', videoW);
+            //theCanvas.setAttribute('height', videoH);
+        
+            video_offset_x = innerW > videoW ? 0 : (videoW - innerW) / 2;
+            video_offset_y = innerH > videoH ? 0 : (videoH - innerH) / 2;
+        }
+
+        // リサイズ時にCanvasサイズを再設定
+        window.addEventListener("resize", function() {
+                    clearTimeout(queue);
+                    queue = setTimeout(function() {
+                            setCanvasSize(decoded);
+                            //setCanvasSize(offscreen);
+                            offscreen.width  = decoded.width;
+                            offscreen.height = decoded.height;
+                    }, wait);
+        }, false);
+
+        }(this));
+    </script>
+
+</body>
+</html>
+
