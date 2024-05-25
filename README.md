@@ -1,8 +1,8 @@
-# Carrier-Screen Images decoder
+# Carrier-Screen Images Decoder
 
 キャリアスクリーン画像の復号用Webアプリです。
 
-https://shogenji.github.io/carrier-screen-decoder/
+https://shogenji.github.io/carrier-screen-images-decoder/
 
 * カメラの使用を許可してください。
 * スマートフォンによっては表示が崩れる場合があります。
