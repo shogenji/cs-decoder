@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
     <meta charset="UTF-8">
-    <title>Lintec Decoder - for Line-pattern carrier-screen images</title>
+    <title>Carrier-Screen-Images Decoder</title>
     <script src="./js/adapter.js"></script>
 
     <style>
@@ -25,7 +25,7 @@
 
     #decoded {
         object-fit: contain;
-        margin: 0px 0px 0px 0px;
+        margin: 10px 10px 10px 10px;
         position: fixed;
         left: 0;
         top: 0;
@@ -75,7 +75,7 @@
         var offscreen_ctx = offscreen.getContext("2d");
 
         
-        var interval = 3;
+        var interval = 2;
         var match = location.search.match(/interval=(.*?)(&|$)/);
         if(match) {
             interval = decodeURIComponent(match[1]);
@@ -102,10 +102,10 @@
                 for (var y = 0; y < dst.height; y++) {
                     for (var x = 0; x < dst.width; x++) {
                         var yy = Math.floor(y / interval) * interval;
-                            dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
-                            dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
-                            dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
-                            dst.data[(y * dst.width + x) * 4 + 3] = 255;//src.data[(y * dst.width + x) * 4 + 3];
+                        dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+                        dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
+                        dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+                        dst.data[(y * dst.width + x) * 4 + 3] = 255;//src.data[(y * dst.width + x) * 4 + 3];
                     }
                 }
         
