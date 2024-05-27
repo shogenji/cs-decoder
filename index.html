@@ -101,6 +101,8 @@
         function loop() {
         
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
+
+                console.log("video.videoWidth: " + video.videoWidth + "  video.videoWidth: " + video.videoHeight);
                 offscreen_ctx.drawImage(video, video_offset_x, video_offset_y, video.videoWidth, video.videoHeight, 0, 0, offscreen.width, offscreen.height);
                 var src = new Image();
                 var dst = new Image();
