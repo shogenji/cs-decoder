@@ -105,7 +105,7 @@
                 var src = new Image();
                 var dst = new Image();
         
-                src = offscreen_ctx.getImageData(0, 0, offscreen.width, offscreen.height);
+                src = offscreen_ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
                 dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
         
                 for (var y = 0; y < dst.height; y++) {
@@ -128,7 +128,7 @@
         video.srcObject = stream;
         video.play();
         //streaming = true; // これがあるとエラーになる
-        setCanvasSize(decoded);
+        // setCanvasSize(decoded);
 
         requestAnimationFrame(loop);
         }
@@ -190,6 +190,13 @@
         }, false);
 
         }(this));
+
+
+        navigator.mediaDevices.getUserMedia(constraints).then(function(stream) {
+var settings = stream.getVideoTracks()[0].getSettings();
+var width = settings.width;
+var height = settings.height;
+});
     </script>
 
 </body>
