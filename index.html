@@ -105,18 +105,18 @@
                 var src = new Image();
                 var dst = new Image();
         
-                src = offscreen_ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
-                dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
+                dst = offscreen_ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
+                // dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
         
-                for (var y = 0; y < dst.height; y++) {
-                    for (var x = 0; x < dst.width; x++) {
-                        var yy = Math.floor(y / interval) * interval;
-                        dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
-                        dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
-                        dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
-                        dst.data[(y * dst.width + x) * 4 + 3] = 255;//src.data[(y * dst.width + x) * 4 + 3];
-                    }
-                }
+                // for (var y = 0; y < dst.height; y++) {
+                //     for (var x = 0; x < dst.width; x++) {
+                //         var yy = Math.floor(y / interval) * interval;
+                //         dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+                //         dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
+                //         dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+                //         dst.data[(y * dst.width + x) * 4 + 3] = 255;//src.data[(y * dst.width + x) * 4 + 3];
+                //     }
+                // }
         
                 decoded_ctx.putImageData(dst, 0, 0);
                 //decoded_ctx.drawImage(dst, 0, 0, offscreen.width, offscreen.height);
