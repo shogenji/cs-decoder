@@ -156,20 +156,20 @@
     
         // Canvasサイズをコンテナの100%に
         function setCanvasSize(theCanvas) {
-            let innerW = window.innerWidth;
-            let innerH = window.innerHeight;
-            let videoW = video.videoWidth;
-            let videoH = video.videoHeight;
-            console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
-            console.log("video.videoWidth: " + videoW + "  video.videoHeight: " + videoH);
+            // let innerW = window.innerWidth;
+            // let innerH = window.innerHeight;
+            // let videoW = video.videoWidth;
+            // let videoH = video.videoHeight;
+            // console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
+            // console.log("video.videoWidth: " + videoW + "  video.videoHeight: " + videoH);
 
-            theCanvas.setAttribute('width', innerW);
-            theCanvas.setAttribute('height', innerH);
-            //theCanvas.setAttribute('width', videoW);
-            //theCanvas.setAttribute('height', videoH);
+            // theCanvas.setAttribute('width', innerW);
+            // theCanvas.setAttribute('height', innerH);
+            // //theCanvas.setAttribute('width', videoW);
+            // //theCanvas.setAttribute('height', videoH);
         
-            video_offset_x = innerW > videoW ? 0 : (videoW - innerW) / 2;
-            video_offset_y = innerH > videoH ? 0 : (videoH - innerH) / 2;
+            // video_offset_x = innerW > videoW ? 0 : (videoW - innerW) / 2;
+            // video_offset_y = innerH > videoH ? 0 : (videoH - innerH) / 2;
         }
 
         // リサイズ時にCanvasサイズを再設定
