@@ -191,7 +191,9 @@
                     clearTimeout(queue);
                     queue = setTimeout(function() {
                         setCanvasSize(decoded);
-                        setCanvasSize(video);
+                        //setCanvasSize(video);
+                        video.setAttribute('width', 100);
+                        video.setAttribute('height', 100);
                     }, wait);
         }, false);
 
