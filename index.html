@@ -118,10 +118,9 @@
             if (navigator.mediaDevices.getUserMedia) {
                 //alert("navigator.mediaDevices.getUserMedia");
                 let constraints = {video: {
-                    /* widht: 1280, height: 720, */
                     frameRate: {min: 10, ideal: 30},
-                    width: {min: 1280, ideal: 1280},
-                    height: {min: 1280, ideal: 1280},
+                    width: {min: 640, ideal: 1280},
+                    height: {min: 640, ideal: 1280},
                     facingMode: {exact: 'environment'}
                 }};
 
