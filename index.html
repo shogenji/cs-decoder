@@ -26,35 +26,21 @@
     #decoded {
         object-fit: cover;
         position: absolute;
-        left: 100; top: 100;
-        z-index: 1;        /* position: fixed; */
-        /* left: 0;
-        top: 0; */
-        /*width: 100%;*/
-        /*height: 100%;*/
+        left: 100;
+        top: 100;
+        z-index: 1;
         /*border: 1px solid #00f;*/
     }
 
     video #camera {
         position: absolute;
-        left: 0; top: 0;
+        left: 0;
+        top: 0;
         z-index: -1;
-          /* display: none; */
-  background: #ff0000;
-  margin: 20px;
-  --width: 100%;
-  width: var(--width);
-  height: calc(var(--width));
-
-/*         margin: 0px 0px 0px 0px;
-        position: fixed;
-        left: 0; top: 0;
-        min-width: 100%;
-        min-height: 100%;
-        width: auto;
-        height: auto;
-        z-index: -100;
-        /*border: 2px solid #f00;*/ */
+        /* display: none; */
+        width: 640px;
+        height: 640px;
+        /*border: 2px solid #f00;*/
     }
     -->
     </style>
@@ -191,7 +177,7 @@
                     clearTimeout(queue);
                     queue = setTimeout(function() {
                         setCanvasSize(decoded);
-                        setCanvasSize(video);
+                        /* setCanvasSize(video); */
                     }, wait);
         }, false);
 
