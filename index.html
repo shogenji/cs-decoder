@@ -76,9 +76,10 @@
             interval = decodeURIComponent(match[1]);
         }
         console.log("interval: " + interval);
-        
+
         var queue = null;
         var wait = 300;
+
         function loop() {
         
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
