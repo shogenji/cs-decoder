@@ -133,6 +133,7 @@
                     video.srcObject = stream;
                     video.play();
                     setCanvasSize(decoded);
+                    setCanvasSize(video);
 
                     requestAnimationFrame(loop);
                 })
