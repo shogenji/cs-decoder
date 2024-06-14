@@ -55,11 +55,12 @@
 
     <script>
 
-        var document = window.document;
-        var navigator = window.navigator;
-        var requestAnimationFrame = window.self.requestAnimationFrame;
+        const document = window.document;
+        const navigator = window.navigator;
+        const requestAnimationFrame = window.self.requestAnimationFrame;
         
         const video = document.getElementById("camera");
+        setCanvasSize(video);
         
         const decoded   = document.getElementById("decoded");
         /* decoded.width   = window.innerWidth;
