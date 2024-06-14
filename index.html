@@ -190,7 +190,8 @@
         window.addEventListener("resize", function() {
                     clearTimeout(queue);
                     queue = setTimeout(function() {
-                            setCanvasSize(decoded);
+                        setCanvasSize(decoded);
+                        setCanvasSize(video);
                     }, wait);
         }, false);
 
