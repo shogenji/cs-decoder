@@ -89,6 +89,11 @@
         offscreen.height  = 1280;
         var offscreen_ctx = offscreen.getContext("2d");
 
+        var offscreen_decoded     = document.createElement("canvas");
+        offscreen_decoded.width   = 640;
+        offscreen_decoded.height  = 640;
+        var offscreen_decoded_ctx = offscreen.getContext("2d");
+
         
         var interval = 3;
         var match = location.search.match(/interval=(.*?)(&|$)/);
@@ -107,8 +112,6 @@
         function loop() {
         
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                console.log("video.videoWidth: " + video.videoWidth + "  video.videoWidth: " + video.videoHeight);
-
                 offscreen_ctx.drawImage(video, 0, 0, 1280, 1280, 0, 0, 1280, 1280);
                 var src = new Image();
                 var dst = new Image();
@@ -172,34 +175,15 @@
         
         start();
     
-        /**
-        * ビデオのカメラ設定(デバイスのカメラ映像をビデオに表示)
-        */
-        function initVideoCamera() {
-            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-                .then((stream) => {
-                    video.srcObject = stream;
-                    video.play();
-                })
-                .catch(e => console.log(e));
-        }
 
         // Canvasサイズをコンテナの100%に
         function setCanvasSize(theCanvas) {
-            // let innerW = window.innerWidth;
-            // let innerH = window.innerHeight;
-            // let videoW = video.videoWidth;
-            // let videoH = video.videoHeight;
-            // console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
-            // console.log("video.videoWidth: " + videoW + "  video.videoHeight: " + videoH);
+            let innerW = window.innerWidth;
+            let innerH = window.innerHeight;
+            console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
 
-            // theCanvas.setAttribute('width', innerW);
-            // theCanvas.setAttribute('height', innerH);
-            // //theCanvas.setAttribute('width', videoW);
-            // //theCanvas.setAttribute('height', videoH);
-        
-            // video_offset_x = innerW > videoW ? 0 : (videoW - innerW) / 2;
-            // video_offset_y = innerH > videoH ? 0 : (videoH - innerH) / 2;
+            theCanvas.setAttribute('width', innerW);
+            theCanvas.setAttribute('height', innerH);
         }
 
         // リサイズ時にCanvasサイズを再設定
@@ -207,9 +191,6 @@
                     clearTimeout(queue);
                     queue = setTimeout(function() {
                             setCanvasSize(decoded);
-                            //setCanvasSize(offscreen);
-                            offscreen.width  = decoded.width;
-                            offscreen.height = decoded.height;
                     }, wait);
         }, false);
 
