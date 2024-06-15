@@ -61,7 +61,7 @@
         var requestAnimationFrame = window.self.requestAnimationFrame;
         
         const video = document.getElementById("camera");
-        setCanvasSize(video);
+        /* setCanvasSize(video); */
         
         const decoded   = document.getElementById("decoded");
         /* decoded.width   = window.innerWidth;
@@ -134,7 +134,7 @@
                     video.srcObject = stream;
                     video.play();
                     setCanvasSize(decoded);
-                    setCanvasSize(video);
+                    /* setCanvasSize(video); */
 
                     requestAnimationFrame(loop);
                 })
@@ -162,7 +162,7 @@
                     clearTimeout(queue);
                     queue = setTimeout(function() {
                         setCanvasSize(decoded);
-                        setCanvasSize(video);
+                        /* setCanvasSize(video); */
                     }, wait);
         }, false);
 
