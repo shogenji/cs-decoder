@@ -2,7 +2,7 @@
 
 キャリアスクリーン画像の復号用Webアプリです。
 
-https://shogenji.github.io/carrier-screen-images-decoder/
+https://shogenji.github.io/cs-decoder/
 
 * カメラの使用を許可してください。
 * スマートフォンによっては表示が崩れる場合があります。
