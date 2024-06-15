@@ -71,12 +71,12 @@
         setCanvasSize(decoded);
 
         var offscreen     = document.createElement("canvas");
-        offscreen.width   = 640;
-        offscreen.height  = 640;
+        offscreen.width   = 1280;
+        offscreen.height  = 1280;
         var offscreen_ctx = offscreen.getContext("2d");
 
         var interval = 3;
-        var match = location.search.match(/interval=(.*?)(&|$)/);
+        var match = location.search.match(/i=(.*?)(&|$)/);
         if(match) {
             interval = decodeURIComponent(match[1]);
         }
@@ -88,12 +88,12 @@
         function loop() {
         
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
-                offscreen_ctx.drawImage(video, 0, 0, 640, 640, 0, 0, 640, 640);
+                offscreen_ctx.drawImage(video, 0, 0, 1280, 1280, 0, 0, 1280, 1280);
                 var src = new Image();
                 var dst = new Image();
         
-                src = offscreen_ctx.getImageData(0, 0, 640, 640);
-                dst = offscreen_ctx.createImageData(640, 640);
+                src = offscreen_ctx.getImageData(0, 0, 1280, 1280);
+                dst = offscreen_ctx.createImageData(1280, 1280);
         
                 for (var y = 0; y < dst.height; y++) {
                     for (var x = 0; x < dst.width; x++) {
@@ -123,8 +123,8 @@
                 //alert("navigator.mediaDevices.getUserMedia");
                 let constraints = {video: {
                     frameRate: {min: 10, ideal: 30},
-                    width: {min: 640, ideal: 640},
-                    height: {min: 640, ideal: 640},
+                    width: {min: 1080, ideal: 2160},
+                    height: {min: 1080, ideal: 2160},
                     facingMode: {exact: 'environment'}
                 }};
 
@@ -142,6 +142,10 @@
                 .catch(err => {
                     alert("An error occured! " + err);
                 });
+
+                offscreen.width   = video.width;
+                offscreen.height  = video.height;
+                console.log("offscreen.width: " + offscreen.width + "  offscreen.height: " + offscreen.height);
             }
         }
         
