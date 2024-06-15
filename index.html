@@ -25,7 +25,7 @@
 
     #decoded {
         object-fit: cover;
-        object-position: center left;
+        object-position: center right;
         position: absolute;
         left: 0;
         top: 0;
@@ -123,7 +123,7 @@
                 //alert("navigator.mediaDevices.getUserMedia");
                 let constraints = {video: {
                     frameRate: {min: 10, ideal: 30},
-                    width: {min: 1280, ideal: 1280},
+                    width: {min: 640, ideal: 640},
                     height: {min: 1280, ideal: 1280},
                     facingMode: {exact: 'environment'}
                 }};
