@@ -56,6 +56,8 @@
     <video id="camera" autoplay muted playsinline></video>
 
     <script>
+        let supported = navigator.mediaDevices.getSupportedConstraints();
+        console.log(supported);
 
         var document = window.document;
         var navigator = window.navigator;
@@ -86,6 +88,7 @@
         var wait = 300;
 
         function loop() {
+            console.log("video.width: " + video.width + "  video.height: " + video.height);
         
             if (video.readyState === video.HAVE_ENOUGH_DATA) {
                 offscreen_ctx.drawImage(video, 0, 0, 1280, 1280, 0, 0, 1280, 1280);
@@ -139,15 +142,30 @@
                     setCanvasSize(decoded);
                     /* setCanvasSize(video); */
 
+                    /* https://webrtc.org/?hl=ja */
+                    /* https://houwa-js.co.jp/2019/06/20190604/ */
+                    let currentTrack;
+                    stream.getVideoTracks().forEach(track => {
+                        if (track.readyState == 'live') {
+                            currentTrack = track;
+                            return;
+                        }
+                    });
+                    let settings = currentTrack.getSettings();
+                    /* let width = settings.width;
+                    let height = settings.height; */
+                    console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+
                     requestAnimationFrame(loop);
                 })
                 .catch(err => {
                     alert("An error occured! " + err);
                 });
 
-                offscreen.width   = video.width;
+
+                /* offscreen.width   = video.width;
                 offscreen.height  = video.height;
-                console.log("offscreen.width: " + offscreen.width + "  offscreen.height: " + offscreen.height);
+                console.log("offscreen.width: " + offscreen.width + "  offscreen.height: " + offscreen.height); */
             }
         }
         
