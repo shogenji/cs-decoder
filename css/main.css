@@ -39,3 +39,14 @@ canvas {
 video {
   border: 2px solid #f00;
 }
+
+
+
+
+#debug {
+  position: absolute;
+  left: 0;
+  top: 0;
+  padding: 20;
+  z-index: 100;
+}

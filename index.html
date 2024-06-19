@@ -5,56 +5,23 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
     <meta charset="UTF-8">
     <title>Carrier-Screen-Images Decoder</title>
-    <script src="./js/adapter.js"></script>
 
-    <style>
-    <!--
-    html {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    body {
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-    }
-
-    #decoded {
-        object-fit: cover;
-        object-position: center right;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: 1;
-        /*border: 1px solid #00f;*/
-    }
-
-    video #camera {
-        object-fit: cover;
-        position: absolute;
-        left: 0;
-        top: 0;
-        z-index: -1;
-        visibility: hidden;
-        /* display: none; */
-        /* width: 320;
-        height: 320; */
-        /*border: 2px solid #f00;*/
-    }
-    -->
-    </style>
-
+    <link rel="stylesheet" href="css/main.css">    
 </head>
 <body>
-    <canvas id="decoded"></canvas>
+    <div id="container">
+        <canvas id="decoded"></canvas>
+        <video id="camera" autoplay muted playsinline></video>
+        <p id="debug"></p>
+    </div>
+    
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <script src="js/main.js" async></script>
+</body>
+</html>
 
 
-    <video id="camera" autoplay muted playsinline></video>
-
+/* 
     <script>
         let supported = navigator.mediaDevices.getSupportedConstraints();
         console.log(supported);
@@ -196,4 +163,4 @@
 
 </body>
 </html>
-
+ */
