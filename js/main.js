@@ -31,6 +31,9 @@ if(match) {
 }
 console.log("interval: " + interval);
 
+let offset_x;
+let offset_y;
+
 const constraints = {
   video: {
     width: {min: 640, ideal: 1920, max: 1920},
@@ -68,10 +71,11 @@ navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handl
 function loop() {
   // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
   debug.innerText = " window (" + offscreen.width + ", " + offscreen.height + ')\n' 
-                  + " camera (" + settings.width + ", " + settings.height + ')\n';
+  + " camera (" + settings.width + ", " + settings.height + ')\n';
+  + " offset (" + offset_x + ", " + offset_y + ')\n';
 
-  let offset_x = (settings.width - offscreen.width) / 2;
-  let offset_y = (settings.height - offscreen.height) / 2;
+  // offset_x = (settings.width - offscreen.width) / 2;
+  // offset_y = (settings.height - offscreen.height) / 2;
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
@@ -105,12 +109,34 @@ function setCanvasSize(theCanvas) {
 
   theCanvas.setAttribute('width', innerW);
   theCanvas.setAttribute('height', innerH);
+
+  if (settings.width > offscreen.width) {
+    offset_x = (settings.width - offscreen.width) / 2;
+  } else {
+    offset_x = (offscreen.width - settings.width) / 2;
+  }
+  if (settings.height > offscreen.height) {
+    offset_y = (settings.height - offscreen.height) / 2;
+  } else {
+    offset_y = (offscreen.height - settings.height) / 2;
+  }
 }
 
 function reportWindowSize() {
   setCanvasSize(canvas);
   setCanvasSize(video);
   setCanvasSize(offscreen);
+
+  if (settings.width > offscreen.width) {
+    offset_x = (settings.width - offscreen.width) / 2;
+  } else {
+    offset_x = (offscreen.width - settings.width) / 2;
+  }
+  if (settings.height > offscreen.height) {
+    offset_y = (settings.height - offscreen.height) / 2;
+  } else {
+    offset_y = (offscreen.height - settings.height) / 2;
+  }
 }
 
 setCanvasSize(canvas);
