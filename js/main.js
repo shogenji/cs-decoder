@@ -1,0 +1,144 @@
+/*
+ *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+ *
+ *  Use of this source code is governed by a BSD-style license
+ *  that can be found in the LICENSE file in the root of the source
+ *  tree.
+ */
+
+'use strict';
+
+// Put variables in global scope to make them available to the browser console.
+const video = document.querySelector('video');
+const canvas = window.canvas = document.querySelector('canvas');
+let stream;
+let settings;
+
+let requestAnimationFrame = window.self.requestAnimationFrame;
+
+let decoded_ctx = canvas.getContext('2d');
+
+const offscreen     = document.createElement('canvas');
+offscreen.width   = 1280;
+offscreen.height  = 1280;
+let offscreen_ctx = offscreen.getContext('2d');
+
+let interval = 3;
+let match = location.search.match(/i=(.*?)(&|$)/);
+if(match) {
+    interval = decodeURIComponent(match[1]);
+}
+console.log("interval: " + interval);
+
+// canvas.width = 480;
+// canvas.height = 360;
+// canvas.width = 1200;
+// canvas.height = 800;
+// setCanvasSize(canvas);
+// setCanvasSize(video);
+// setCanvasSize(offscreen);
+
+// const button = document.querySelector('button');
+// button.onclick = function() {
+//   canvas.width = video.videoWidth;
+//   canvas.height = video.videoHeight;
+//   canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+// };
+
+// const constraints = {
+//   audio: false,
+//   video: true,
+//   video: {width: {exact: 1920}, height: {exact: 1080}},
+//   frameRate: {min: 10, ideal: 30},
+//   width: {min: 1280, ideal: 1280},
+//   height: {min: 1280, ideal: 1280},
+//   /* width: {min: 1080, ideal: 2160},
+//   height: {min: 1080, ideal: 2160}, */
+//   facingMode: {exact: 'environment'}
+// };
+const constraints = {
+  video: {
+    width: {min: 640, ideal: 1920, max: 1920},
+    height: {min: 400, ideal: 1080},
+    frameRate: {max: 30},
+    facingMode: {exact: 'environment'},
+  }
+};
+
+
+function handleSuccess(stream) {
+  window.stream = stream; // make stream available to browser console
+  video.srcObject = stream;
+  video.play();
+
+  let currentTrack;
+  stream.getVideoTracks().forEach(track => {
+      if (track.readyState == 'live') {
+          currentTrack = track;
+          return;
+      }
+  });
+  settings = currentTrack.getSettings();
+  /* let width = settings.width;
+  let height = settings.height; */
+  console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+
+  requestAnimationFrame(loop);
+}
+
+function handleError(error) {
+  console.log('navigator.MediaDevices.getUserMedia error: ', error.message, error.name);
+}
+
+navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
+
+function loop() {
+  // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+  let offset_x = (settings.width - offscreen.width) / 2;
+  let offset_y = (settings.height - offscreen.height) / 2;
+
+  if (video.readyState === video.HAVE_ENOUGH_DATA) {
+    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    let src = new Image();
+    let dst = new Image();
+
+    src = offscreen_ctx.getImageData(0, 0, offscreen.width, offscreen.height);
+    dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
+
+    for (let y = 0; y < dst.height; y++) {
+        for (let x = 0; x < dst.width; x++) {
+            let yy = Math.floor(y / interval) * interval;
+                dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+                dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
+                dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+                dst.data[(y * dst.width + x) * 4 + 3] = 255;
+        }
+    }
+
+
+    // decoded_ctx.putImageData(src, 0, 0);
+    decoded_ctx.putImageData(dst, 0, 0);
+  }
+  requestAnimationFrame(loop);
+}
+
+// Canvasサイズをコンテナの100%に
+function setCanvasSize(theCanvas) {
+  let innerW = window.innerWidth;
+  let innerH = window.innerHeight;
+  console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
+
+  theCanvas.setAttribute('width', innerW);
+  theCanvas.setAttribute('height', innerH);
+}
+
+function reportWindowSize() {
+  setCanvasSize(canvas);
+  setCanvasSize(video);
+}
+
+setCanvasSize(canvas);
+setCanvasSize(video);
+setCanvasSize(offscreen);
+
+window.onresize = reportWindowSize;
