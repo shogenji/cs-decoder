@@ -110,6 +110,7 @@ function setCanvasSize(theCanvas) {
 function reportWindowSize() {
   setCanvasSize(canvas);
   setCanvasSize(video);
+  setCanvasSize(offscreen);
 }
 
 setCanvasSize(canvas);
