@@ -80,9 +80,6 @@ function loop() {
                   + "\n"
                   + document.lastModified;
 
-  // offset_x = (settings.height - offscreen.width) / 2;
-  // offset_y = (settings.width - offscreen.height) / 2;
-
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
@@ -101,9 +98,9 @@ function loop() {
         }
     }
 
-    // decoded_ctx.putImageData(src, 0, 0);
     decoded_ctx.putImageData(dst, 0, 0);
   }
+
   requestAnimationFrame(loop);
 }
 
@@ -130,17 +127,6 @@ function setCanvasSize(theCanvas) {
 }
 
 function setOffscreenOffset() {
-  // if (settings.width > offscreen.width) {
-  //   offset_x = (settings.height - offscreen.width) / 2;
-  // } else {
-  //   offset_x = (offscreen.width - settings.height) / 2;
-  // }
-  // if (settings.height > offscreen.height) {
-  //   offset_y = (settings.width - offscreen.height) / 2;
-  // } else {
-  //   offset_y = (offscreen.height - settings.width) / 2;
-  // }
-
   if (settings.width > settings.height) {
     switch (screen.orientation.type) {
       case "landscape-primary":
@@ -172,14 +158,10 @@ function setOffscreenOffset() {
   }
 }
 
-function reportWindowSize() {
+function windowResized() {
   setCanvasSize(canvas);
   setCanvasSize(video);
   setCanvasSize(offscreen);
-
-  setOffscreenOffset();
-
-  // getSettings(stream);
 }
 
 setCanvasSize(canvas);
@@ -199,8 +181,7 @@ btnInterval.addEventListener('click', function() {
   btnInterval.innerText = interval;
 });
 
-window.onresize = reportWindowSize;
-
+window.onresize = windowResized;
 
 screen.orientation.addEventListener("change", function() {
   debugText = "orientation changed!\n";
