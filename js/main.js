@@ -141,6 +141,8 @@ function reportWindowSize() {
   setCanvasSize(offscreen);
 
   setffscreenOffset();
+
+  getSettings(stream);
 }
 
 setCanvasSize(canvas);
