@@ -71,7 +71,7 @@ navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handl
 function loop() {
   // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
   debug.innerText = " window (" + offscreen.width + ", " + offscreen.height + ')\n' 
-  + " camera (" + settings.width + ", " + settings.height + ')\n';
+  + " camera (" + settings.width + ", " + settings.height + ')\n'
   + " offset (" + offset_x + ", " + offset_y + ')\n';
 
   offset_x = (settings.height - offscreen.width) / 2;
