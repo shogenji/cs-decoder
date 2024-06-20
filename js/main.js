@@ -109,16 +109,18 @@ function setCanvasSize(theCanvas) {
 
   theCanvas.setAttribute('width', innerW);
   theCanvas.setAttribute('height', innerH);
+}
 
+function setOffscreenOffset() {
   if (settings.width > offscreen.width) {
-    offset_x = (settings.width - offscreen.width) / 2;
+    offset_x = (settings.height - offscreen.width) / 2;
   } else {
-    offset_x = (offscreen.width - settings.width) / 2;
+    offset_x = (offscreen.width - settings.height) / 2;
   }
   if (settings.height > offscreen.height) {
-    offset_y = (settings.height - offscreen.height) / 2;
+    offset_y = (settings.width - offscreen.height) / 2;
   } else {
-    offset_y = (offscreen.height - settings.height) / 2;
+    offset_y = (offscreen.height - settings.width) / 2;
   }
 }
 
@@ -127,21 +129,14 @@ function reportWindowSize() {
   setCanvasSize(video);
   setCanvasSize(offscreen);
 
-  if (settings.width > offscreen.width) {
-    offset_x = (settings.width - offscreen.width) / 2;
-  } else {
-    offset_x = (offscreen.width - settings.width) / 2;
-  }
-  if (settings.height > offscreen.height) {
-    offset_y = (settings.height - offscreen.height) / 2;
-  } else {
-    offset_y = (offscreen.height - settings.height) / 2;
-  }
+  setffscreenOffset();
 }
 
 setCanvasSize(canvas);
 setCanvasSize(video);
 setCanvasSize(offscreen);
+
+setOffscreenOffset();
 
 window.onresize = reportWindowSize;
 
