@@ -169,9 +169,9 @@ btnInterval.addEventListener('click', function() {
 window.onresize = reportWindowSize;
 
 
-screen.orientation.addEventListener("change", (event) => {
-  type = event.target.type;
-  angle = event.target.angle;
+screen.orientation.addEventListener("change", function() {
+  type = screen.orientation.type;
+  angle = screen.orientation.angle;
   console.log(`ScreenOrientation change: ${type}, ${angle} degrees.`);
 });
 
