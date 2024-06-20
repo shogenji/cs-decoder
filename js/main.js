@@ -207,5 +207,7 @@ screen.orientation.addEventListener("change", function() {
 
   type = screen.orientation.type;
   angle = screen.orientation.angle;
+
+  setOffscreenOffset();
 });
 
