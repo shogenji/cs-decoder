@@ -40,6 +40,7 @@ let offset_y = 0;
 let type = screen.orientation.type;
 let angle = screen.orientation.angle;
 
+const debugText ="";
 
 const constraints = {
   video: {
@@ -74,6 +75,8 @@ function loop() {
                   + " offset (" + offset_x + ", " + offset_y + ")\n"
                   + "\n"
                   + " orientation (" + type + ", " + angle + ")\n"
+                  + "\n"
+                  + debugText
                   + "\n"
                   + document.lastModified;
 
@@ -142,6 +145,7 @@ function setOffscreenOffset() {
 }
 
 function reportWindowSize() {
+  debugText = "window resized!";
   setCanvasSize(canvas);
   setCanvasSize(video);
   setCanvasSize(offscreen);
@@ -158,6 +162,8 @@ setCanvasSize(offscreen);
 // setOffscreenOffset();
 
 btnInterval.addEventListener('click', function() {
+  debugText = "button clicked!";
+
   interval++;
   if (interval >= 5) {
     interval = 2;
@@ -170,6 +176,8 @@ window.onresize = reportWindowSize;
 
 
 screen.orientation.addEventListener("change", function() {
+  debugText = "orientation changed!";
+
   type = screen.orientation.type;
   angle = screen.orientation.angle;
 });
