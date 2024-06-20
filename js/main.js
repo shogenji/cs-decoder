@@ -112,16 +112,18 @@ function setCanvasSize(theCanvas) {
 }
 
 function setOffscreenOffset() {
-  if (settings.width > offscreen.width) {
-    offset_x = (settings.height - offscreen.width) / 2;
-  } else {
-    offset_x = (offscreen.width - settings.height) / 2;
-  }
-  if (settings.height > offscreen.height) {
-    offset_y = (settings.width - offscreen.height) / 2;
-  } else {
-    offset_y = (offscreen.height - settings.width) / 2;
-  }
+  // if (settings.width > offscreen.width) {
+  //   offset_x = (settings.height - offscreen.width) / 2;
+  // } else {
+  //   offset_x = (offscreen.width - settings.height) / 2;
+  // }
+  // if (settings.height > offscreen.height) {
+  //   offset_y = (settings.width - offscreen.height) / 2;
+  // } else {
+  //   offset_y = (offscreen.height - settings.width) / 2;
+  // }
+  offset_x = (settings.height - offscreen.width) / 2;
+  offset_y = (settings.width - offscreen.height) / 2;
 }
 
 function reportWindowSize() {
