@@ -145,7 +145,7 @@ setCanvasSize(offscreen);
 
 btnInterval.addEventListener('click', function() {
   interval++;
-  if (interval >= 9) {
+  if (interval >= 5) {
     interval = 2;
   }
 
