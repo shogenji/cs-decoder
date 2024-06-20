@@ -52,15 +52,7 @@ function handleSuccess(stream) {
   video.srcObject = stream;
   video.play();
 
-  let currentTrack;
-  stream.getVideoTracks().forEach(track => {
-      if (track.readyState == 'live') {
-          currentTrack = track;
-          return;
-      }
-  });
-  settings = currentTrack.getSettings();
-  console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+  getSettings(stream);
 
   requestAnimationFrame(loop);
 }
@@ -102,6 +94,18 @@ function loop() {
     decoded_ctx.putImageData(dst, 0, 0);
   }
   requestAnimationFrame(loop);
+}
+
+function getSettings(stream) {
+  let currentTrack;
+  stream.getVideoTracks().forEach(track => {
+      if (track.readyState == 'live') {
+          currentTrack = track;
+          return;
+      }
+  });
+  settings = currentTrack.getSettings();
+  console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
 }
 
 // Canvasサイズをコンテナの100%に
