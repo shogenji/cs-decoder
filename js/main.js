@@ -40,7 +40,7 @@ let offset_y = 0;
 let type = screen.orientation.type;
 let angle = screen.orientation.angle;
 
-let debugText = "";
+let debugText = "\n";
 
 const constraints = {
   video: {
@@ -140,8 +140,36 @@ function setOffscreenOffset() {
   // } else {
   //   offset_y = (offscreen.height - settings.width) / 2;
   // }
-  offset_x = (settings.height - offscreen.width) / 2;
-  offset_y = (settings.width - offscreen.height) / 2;
+
+  if (settings.width > settings.height) {
+    switch (screen.orientation.type) {
+      case "landscape-primary":
+      case "landscape-secondary":
+        offset_x = (settings.width - offscreen.width) / 2;
+        offset_y = (settings.height - offscreen.height) / 2;
+        break;
+      case "portrait-secondary":
+      case "portrait-primary":
+        offset_x = (settings.height - offscreen.width) / 2;
+        offset_y = (settings.width - offscreen.height) / 2;
+        break;
+      default:
+    }
+  } else {
+    switch (screen.orientation.type) {
+      case "landscape-primary":
+      case "landscape-secondary":
+        offset_x = (settings.height - offscreen.width) / 2;
+        offset_y = (settings.width - offscreen.height) / 2;
+        break;
+      case "portrait-secondary":
+      case "portrait-primary":
+        offset_x = (settings.width - offscreen.width) / 2;
+        offset_y = (settings.height - offscreen.height) / 2;
+        break;
+      default:
+    }
+  }
 }
 
 function reportWindowSize() {
