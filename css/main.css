@@ -42,11 +42,32 @@ video {
 
 
 
-
 #debug {
   position: absolute;
   left: 0;
   top: 0;
-  padding: 20;
+  margin: 20px 20px;
+
+  z-index: 100;
+}
+
+button#btnInterval {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  font-size: 16px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: #fff;
+  color: #000;
+  text-decoration: none;
+  text-align: center;
+  margin: 20px 20px;
+
   z-index: 100;
 }

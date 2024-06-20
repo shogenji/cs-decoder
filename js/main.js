@@ -13,7 +13,9 @@
 const video = document.querySelector('video');
 const canvas = window.canvas = document.querySelector('canvas');
 const offscreen = document.createElement('canvas');
+
 const debug = document.getElementById('debug');
+const btnInterval = document.getElementById('btnInterval');
 
 let stream;
 let settings;
@@ -29,6 +31,7 @@ let match = location.search.match(/i=(.*?)(&|$)/);
 if(match) {
     interval = decodeURIComponent(match[1]);
 }
+btnInterval.innerText = interval;
 console.log("interval: " + interval);
 
 let offset_x;
@@ -139,6 +142,15 @@ setCanvasSize(video);
 setCanvasSize(offscreen);
 
 // setOffscreenOffset();
+
+btnInterval.addEventListener('click', function() {
+  interval++;
+  if (interval >= 9) {
+    interval = 2;
+  }
+
+  btnInterval.innerText = interval;
+});
 
 window.onresize = reportWindowSize;
 
