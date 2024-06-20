@@ -145,8 +145,6 @@ function setOffscreenOffset() {
 }
 
 function reportWindowSize() {
-  debugText = "window resized!";
-
   setCanvasSize(canvas);
   setCanvasSize(video);
   setCanvasSize(offscreen);
@@ -163,7 +161,7 @@ setCanvasSize(offscreen);
 // setOffscreenOffset();
 
 btnInterval.addEventListener('click', function() {
-  debugText = "button clicked!";
+  debugText = "button clicked!\n";
 
   interval++;
   if (interval >= 5) {
@@ -177,7 +175,7 @@ window.onresize = reportWindowSize;
 
 
 screen.orientation.addEventListener("change", function() {
-  debugText = "orientation changed!";
+  debugText = "orientation changed!\n";
 
   type = screen.orientation.type;
   angle = screen.orientation.angle;
