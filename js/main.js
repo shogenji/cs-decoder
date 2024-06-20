@@ -37,8 +37,8 @@ console.log("interval: " + interval);
 let offset_x = 0;
 let offset_y = 0;
 
-const type = screen.orientation.type;
-const angle = screen.orientation.angle;
+let type = screen.orientation.type;
+let angle = screen.orientation.angle;
 
 
 const constraints = {
@@ -148,7 +148,7 @@ function reportWindowSize() {
 
   setOffscreenOffset();
 
-  getSettings(stream);
+  // getSettings(stream);
 }
 
 setCanvasSize(canvas);
@@ -172,6 +172,5 @@ window.onresize = reportWindowSize;
 screen.orientation.addEventListener("change", function() {
   type = screen.orientation.type;
   angle = screen.orientation.angle;
-  console.log(`ScreenOrientation change: ${type}, ${angle} degrees.`);
 });
 
