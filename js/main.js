@@ -74,8 +74,8 @@ function loop() {
   + " camera (" + settings.width + ", " + settings.height + ')\n';
   + " offset (" + offset_x + ", " + offset_y + ')\n';
 
-  // offset_x = (settings.width - offscreen.width) / 2;
-  // offset_y = (settings.height - offscreen.height) / 2;
+  offset_x = (settings.height - offscreen.width) / 2;
+  offset_y = (settings.width - offscreen.height) / 2;
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
@@ -138,7 +138,7 @@ setCanvasSize(canvas);
 setCanvasSize(video);
 setCanvasSize(offscreen);
 
-setOffscreenOffset();
+// setOffscreenOffset();
 
 window.onresize = reportWindowSize;
 
