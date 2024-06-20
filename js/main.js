@@ -40,7 +40,7 @@ let offset_y = 0;
 let type = screen.orientation.type;
 let angle = screen.orientation.angle;
 
-const debugText ="";
+let debugText = "";
 
 const constraints = {
   video: {
@@ -146,6 +146,7 @@ function setOffscreenOffset() {
 
 function reportWindowSize() {
   debugText = "window resized!";
+
   setCanvasSize(canvas);
   setCanvasSize(video);
   setCanvasSize(offscreen);
