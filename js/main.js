@@ -44,8 +44,9 @@ let debugText = "\n";
 
 const constraints = {
   video: {
-    width: {min: 640, ideal: 1920, max: 1920},
-    height: {min: 400, ideal: 1080},
+    width: {min: 640, ideal: 1080, max: 1920},
+    height: {min: 640, ideal: 1080, max: 1920},
+    aspectRatio: {exact: 1.0},
     frameRate: {max: 30},
     facingMode: {exact: 'environment'},
   }
