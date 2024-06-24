@@ -23,7 +23,7 @@ canvas {
 
 video {
   visibility: hidden;
-
+  display: none;
   object-fit: cover;
   position: absolute;
   left: 0;
