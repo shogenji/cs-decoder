@@ -75,8 +75,9 @@ function loop() {
   drawDebugText();
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
-    offscreen.width = video.width;
-    offscreen.height = video.height;
+    // offscreen.width = video.width;
+    // offscreen.height = video.height;
+    setOffscreenSize();
     offscreen_ctx.drawImage(video, 0, 0);
     // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
@@ -95,9 +96,17 @@ function loop() {
         }
     }
 
-    // decoded_ctx.putImageData(dst, 0, 0);
-    decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
+    // decoded_ctx.drawImage(dst, 0, 0);
+    decoded_ctx.putImageData(dst, 0, 0);
+    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
+ 
+    // const bigCanvas = document.getElementById("big");
+    // const bigContext = bigCanvas.getContext("2d");        
+    // const smallContext = document.getElementById("small").getContext("2d");         
+    // smallContext.scale(0.5, 0.5);
+    // smallContext.drawImage(bigCanvas, 0, 0);        
+    // const smallImageData = smallContext.getImageData(0, 0, bigCanvas.width, bigCanvas.height);
   }
 
   requestAnimationFrame(loop);
@@ -126,6 +135,17 @@ function setCanvasSize(theCanvas) {
   theCanvas.setAttribute('width', innerW);
   theCanvas.setAttribute('height', innerH);
 }
+
+function setOffscreenSize() {
+  if (window.innerWidth < window.innerHeight) {
+    offscreen.width = video.width * (window.innerWidth / window.innerHeight);
+    offscreen.height = video.width;
+  } else {
+    offscreen.width = video.width;
+    offscreen.height = video.width * (window.innerWidth / window.innerHeight);
+  }
+}
+
 
 function setOffscreenOffset() {
   if (settings.width > settings.height) {
@@ -175,7 +195,7 @@ btnInterval.addEventListener('click', function() {
   debugText = "button clicked!\n";
 
   interval++;
-  if (interval >= 7) {
+  if (interval > 9) {
     interval = 1;
   }
 
