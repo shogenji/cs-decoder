@@ -159,12 +159,12 @@ function setOffscreenOffset() {
 function windowResized() {
   setCanvasSize(canvas);
   // setCanvasSize(video);
-  setCanvasSize(offscreen);
+  //setCanvasSize(offscreen);
 }
 
 setCanvasSize(canvas);
 // setCanvasSize(video);
-setCanvasSize(offscreen);
+//setCanvasSize(offscreen);
 
 // setOffscreenOffset();
 
