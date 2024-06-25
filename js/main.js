@@ -59,6 +59,8 @@ function handleSuccess(stream) {
   video.play();
 
   getSettings(stream);
+  video.width = settings.width;
+  video.height = settings.height;
 
   requestAnimationFrame(loop);
 }
@@ -70,19 +72,13 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 
 function loop() {
-  // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
-  debug.innerText = " window (" + offscreen.width + ", " + offscreen.height + ")\n"
-                  + " camera (" + settings.width + ", " + settings.height + ")\n"
-                  + " offset (" + offset_x + ", " + offset_y + ")\n"
-                  + "\n"
-                  + " orientation (" + type + ", " + angle + ")\n"
-                  + "\n"
-                  + debugText
-                  + "\n"
-                  + document.lastModified;
+  drawDebugText();
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
-    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    offscreen.width = video.width;
+    offscreen.height = video.height;
+    offscreen_ctx.drawImage(video, 0, 0);
+    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
     let dst = new Image();
 
@@ -100,6 +96,7 @@ function loop() {
     }
 
     decoded_ctx.putImageData(dst, 0, 0);
+    // decoded_ctx.putImageData(dst, 0, 0, dirtyX, dirtyY, canvas.width, canvas.height);
   }
 
   requestAnimationFrame(loop);
@@ -193,3 +190,20 @@ screen.orientation.addEventListener("change", function() {
   setOffscreenOffset();
 });
 
+
+function drawDebugText() {
+  // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+  debug.innerText = " window (" + window.innerWidth + ", " + window.innerHeight + ")\n"
+                  + " camera (" + settings.width + ", " + settings.height + ")\n"
+                  + " video (" + video.width + ", " + video.height + ")\n"
+                  + " canvas (" + canvas.width + ", " + canvas.height + ")\n"
+                  + " offscreen (" + offscreen.width + ", " + offscreen.height + ")\n"
+                  + "\n"
+                  + " offset (" + offset_x + ", " + offset_y + ")\n"
+                  + "\n"
+                  + " orientation (" + type + ", " + angle + ")\n"
+                  + "\n"
+                  + debugText
+                  + "\n"
+                  + document.lastModified;
+}
