@@ -104,21 +104,23 @@ function loop() {
 
 function getSettings(stream) {
   let currentTrack;
+
   stream.getVideoTracks().forEach(track => {
       if (track.readyState == 'live') {
           currentTrack = track;
           return;
       }
   });
+
   settings = currentTrack.getSettings();
-  console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
+  // console.log("settings.width: " + settings.width + "  settings.height: " + settings.height);
 }
 
 // Canvasサイズをコンテナの100%に
 function setCanvasSize(theCanvas) {
   let innerW = window.innerWidth;
   let innerH = window.innerHeight;
-  console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
+  // console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
 
   theCanvas.setAttribute('width', innerW);
   theCanvas.setAttribute('height', innerH);
@@ -172,8 +174,8 @@ btnInterval.addEventListener('click', function() {
   debugText = "button clicked!\n";
 
   interval++;
-  if (interval >= 5) {
-    interval = 2;
+  if (interval >= 7) {
+    interval = 1;
   }
 
   btnInterval.innerText = interval;
