@@ -95,8 +95,9 @@ function loop() {
         }
     }
 
-    decoded_ctx.putImageData(dst, 0, 0);
-    // decoded_ctx.putImageData(dst, 0, 0, dirtyX, dirtyY, canvas.width, canvas.height);
+    // decoded_ctx.putImageData(dst, 0, 0);
+    decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
+    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
   }
 
   requestAnimationFrame(loop);
