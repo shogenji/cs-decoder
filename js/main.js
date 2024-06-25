@@ -72,14 +72,17 @@ function handleError(error) {
 navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handleError);
 
 function loop() {
+  setOffscreenSize();
+  setOffscreenOffset();
   drawDebugText();
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     // offscreen.width = video.width;
     // offscreen.height = video.height;
-    setOffscreenSize();
-    offscreen_ctx.drawImage(video, 0, 0);
+
+    // offscreen_ctx.drawImage(video, 0, 0);
     // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
     let dst = new Image();
 
@@ -210,7 +213,7 @@ screen.orientation.addEventListener("change", function() {
   type = screen.orientation.type;
   angle = screen.orientation.angle;
 
-  setOffscreenOffset();
+  // setOffscreenOffset();
 });
 
 
