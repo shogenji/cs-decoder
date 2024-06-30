@@ -158,13 +158,15 @@ function setCanvasSize(theCanvas) {
 }
 
 function setOffscreenSize() {
-  if (window.innerWidth < window.innerHeight) {
-    offscreen.width = video.width * (window.innerWidth / window.innerHeight);
-    offscreen.height = video.width;
-  } else {
-    offscreen.width = video.width;
-    offscreen.height = video.width * (window.innerWidth / window.innerHeight);
-  }
+  offscreen.width = window.innerHeight;
+  offscreen.height = window.innerWidth;
+// if (window.innerWidth < window.innerHeight) {
+//     offscreen.width = video.width * (window.innerWidth / window.innerHeight);
+//     offscreen.height = video.width;
+//   } else {
+//     offscreen.width = video.width;
+//     offscreen.height = video.width * (window.innerWidth / window.innerHeight);
+//   }
 }
 
 
