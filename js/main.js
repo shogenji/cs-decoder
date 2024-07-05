@@ -89,33 +89,34 @@ function loop() {
     src = offscreen_ctx.getImageData(0, 0, offscreen.width, offscreen.height);
     dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
 
-    // for (let y = 0; y < dst.height; y++) {
-    //     for (let x = 0; x < dst.width; x++) {
-    //         let yy = Math.floor(y / interval) * interval;
-    //             dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
-    //             dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
-    //             dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
-    //             dst.data[(y * dst.width + x) * 4 + 3] = 255;
-    //     }
+    for (let y = 0; y < dst.height; y++) {
+        for (let x = 0; x < dst.width; x++) {
+            let yy = Math.floor(y / interval) * interval;
+                dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+                dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
+                dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+                dst.data[(y * dst.width + x) * 4 + 3] = 255;
+        }
+    }
+    // anaglyph
+    // for (let y = 0; y < dst.height / 2; y++) {
+    //   for (let x = 0; x < dst.width; x++) {
+    //       let yy = Math.floor(y / interval) * interval;
+    //           dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
+    //           dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1] * 0;
+    //           dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2] * 0;
+    //           dst.data[(y * dst.width + x) * 4 + 3] = 255;
+    //   }
     // }
-    for (let y = 0; y < dst.height / 2; y++) {
-      for (let x = 0; x < dst.width; x++) {
-          let yy = Math.floor(y / interval) * interval;
-              dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
-              dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1] * 0;
-              dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2] * 0;
-              dst.data[(y * dst.width + x) * 4 + 3] = 255;
-      }
-    }
-    for (let y = dst.height / 2; y < dst.height; y++) {
-      for (let x = 0; x < dst.width; x++) {
-          let yy = Math.floor(y / interval) * interval;
-              dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0] * 0;
-              dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1] * 0;
-              dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
-              dst.data[(y * dst.width + x) * 4 + 3] = 255;
-      }
-    }
+    // for (let y = dst.height / 2; y < dst.height; y++) {
+    //   for (let x = 0; x < dst.width; x++) {
+    //       let yy = Math.floor(y / interval) * interval;
+    //           dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0] * 0;
+    //           dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1] * 0;
+    //           dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
+    //           dst.data[(y * dst.width + x) * 4 + 3] = 255;
+    //   }
+    // }
 
     // decoded_ctx.drawImage(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0);
@@ -158,8 +159,8 @@ function setCanvasSize(theCanvas) {
 }
 
 function setOffscreenSize() {
-  offscreen.width = window.innerHeight;
-  offscreen.height = window.innerWidth;
+  offscreen.width = window.innerWidth;
+  offscreen.height = window.innerHeight;
 // if (window.innerWidth < window.innerHeight) {
 //     offscreen.width = video.width * (window.innerWidth / window.innerHeight);
 //     offscreen.height = video.width;
