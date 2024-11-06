@@ -178,13 +178,13 @@ function setOffscreenOffset() {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
-        offset_x = (settings.width * 2 - offscreen.width) / 2;
-        offset_y = (settings.height * 2 - offscreen.height) / 2;
+        offset_x = (settings.width - offscreen.width) / 2;
+        offset_y = (settings.height - offscreen.height) / 2;
         break;
       case "portrait-secondary":
       case "portrait-primary":
-        offset_x = (settings.height * 2 - offscreen.width) / 2;
-        offset_y = (settings.width * 2 - offscreen.height) / 2;
+        offset_x = (settings.height - offscreen.width) / 2;
+        offset_y = (settings.width - offscreen.height) / 2;
         break;
       default:
     }
@@ -192,13 +192,13 @@ function setOffscreenOffset() {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
-        offset_x = (settings.height * 2 - offscreen.width) / 2;
-        offset_y = (settings.width * 2 - offscreen.height) / 2;
+        offset_x = (settings.height - offscreen.width) / 2;
+        offset_y = (settings.width - offscreen.height) / 2;
         break;
       case "portrait-secondary":
       case "portrait-primary":
-        offset_x = (settings.width * 2 - offscreen.width) / 2;
-        offset_y = (settings.height * 2 - offscreen.height) / 2;
+        offset_x = (settings.width - offscreen.width) / 2;
+        offset_y = (settings.height - offscreen.height) / 2;
         break;
       default:
     }
