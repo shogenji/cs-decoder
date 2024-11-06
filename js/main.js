@@ -121,8 +121,10 @@ function loop() {
     // decoded_ctx.drawImage(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
-    decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
- 
+    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
+    decoded_ctx.putImageData(dst, 0, 0, canvas.width * 2, canvas.height * 2, 0, 0, canvas.width, canvas.height);
+    //context.drawImage(image, 0, 0, beforeWidth, beforeHeight, 0, 0, afterWidth, afterHeight);
+
     // const bigCanvas = document.getElementById("big");
     // const bigContext = bigCanvas.getContext("2d");        
     // const smallContext = document.getElementById("small").getContext("2d");         
@@ -176,13 +178,13 @@ function setOffscreenOffset() {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
-        offset_x = (settings.width - offscreen.width) / 2;
-        offset_y = (settings.height - offscreen.height) / 2;
+        offset_x = (settings.width * 2 - offscreen.width) / 2;
+        offset_y = (settings.height * 2 - offscreen.height) / 2;
         break;
       case "portrait-secondary":
       case "portrait-primary":
-        offset_x = (settings.height - offscreen.width) / 2;
-        offset_y = (settings.width - offscreen.height) / 2;
+        offset_x = (settings.height * 2 - offscreen.width) / 2;
+        offset_y = (settings.width * 2 - offscreen.height) / 2;
         break;
       default:
     }
@@ -190,13 +192,13 @@ function setOffscreenOffset() {
     switch (screen.orientation.type) {
       case "landscape-primary":
       case "landscape-secondary":
-        offset_x = (settings.height - offscreen.width) / 2;
-        offset_y = (settings.width - offscreen.height) / 2;
+        offset_x = (settings.height * 2 - offscreen.width) / 2;
+        offset_y = (settings.width * 2 - offscreen.height) / 2;
         break;
       case "portrait-secondary":
       case "portrait-primary":
-        offset_x = (settings.width - offscreen.width) / 2;
-        offset_y = (settings.height - offscreen.height) / 2;
+        offset_x = (settings.width * 2 - offscreen.width) / 2;
+        offset_y = (settings.height * 2 - offscreen.height) / 2;
         break;
       default:
     }
