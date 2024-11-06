@@ -122,7 +122,7 @@ function loop() {
     // decoded_ctx.putImageData(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
-    decoded_ctx.putImageData(dst, 0, 0, canvas.width * 2, canvas.height * 2, 0, 0, canvas.width, canvas.height);
+    decoded_ctx.drawImage(dst, 0, 0, canvas.width * 2, canvas.height * 2, 0, 0, canvas.width, canvas.height);
     //context.drawImage(image, 0, 0, beforeWidth, beforeHeight, 0, 0, afterWidth, afterHeight);
 
     // const bigCanvas = document.getElementById("big");
