@@ -81,7 +81,7 @@ function loop() {
     // offscreen.height = video.height;
 
     offscreen_ctx.drawImage(video, 0, 0);
-    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
     let dst = new Image();
@@ -102,7 +102,8 @@ function loop() {
     // decoded_ctx.drawImage(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
-    decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
+    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
+    decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.width, offscreen.height);
 
     // offscreen_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.width, offscreen.height);
     // // decoded_ctx.drawImage(offscreen, 0, 0);
