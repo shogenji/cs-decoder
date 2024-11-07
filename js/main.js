@@ -80,9 +80,8 @@ function loop() {
     // offscreen.width = video.width;
     // offscreen.height = video.height;
 
-    offscreen_ctx.drawImage(video, 0, 0);
-    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
-    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    // offscreen_ctx.drawImage(video, 0, 0);
+    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
     let dst = new Image();
 
@@ -146,8 +145,11 @@ function setCanvasSize(theCanvas) {
 }
 
 function setOffscreenSize() {
-  offscreen.width = window.innerWidth;
-  offscreen.height = window.innerHeight;
+  offscreen.width = video.width;
+  offscreen.height = video.height;
+
+  // offscreen.width = window.innerWidth;
+  // offscreen.height = window.innerHeight;
 // if (window.innerWidth < window.innerHeight) {
 //     offscreen.width = video.width * (window.innerWidth / window.innerHeight);
 //     offscreen.height = video.width;
