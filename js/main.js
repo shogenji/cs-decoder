@@ -74,14 +74,14 @@ navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handl
 function loop() {
   setOffscreenSize();
   setOffscreenOffset();
-  drawDebugText();
+  // drawDebugText();
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     // offscreen.width = video.width;
     // offscreen.height = video.height;
 
     offscreen_ctx.drawImage(video, 0, 0);
-    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
     let dst = new Image();
