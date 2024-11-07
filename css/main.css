@@ -33,11 +33,11 @@ video {
 
 
 canvas {
-  border: 2px solid #00f;
+  /* border: 2px solid #00f; */
 }
 
 video {
-  border: 2px solid #f00;
+  /* border: 2px solid #f00; */
 }
 
 
