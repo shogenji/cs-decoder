@@ -73,7 +73,7 @@ navigator.mediaDevices.getUserMedia(constraints).then(handleSuccess).catch(handl
 function loop() {
   setOffscreenSize();
   setOffscreenOffset();
-  // drawDebugText();
+  drawDebugText();
 
   if (video.readyState === video.HAVE_ENOUGH_DATA) {
     // offscreen.width = video.width;
