@@ -111,7 +111,7 @@ function loop() {
   // }
   for (let y = 0; y < dst.height; y++) {
     for (let x = 0; x < dst.width; x++) {
-        let yy = Math.floor((Math.floor(y / interval) * interval) * (offscreen.height / canvas.height));
+        let yy = Math.floor((Math.floor(y / interval) * interval) * (offscreen.height / canvas.width));
         let xx = Math.floor(x * (offscreen.width / canvas.width));
             dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * src.width + xx + offset_x) * 4 + 0];
             dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * src.width + xx + offset_x) * 4 + 1];
