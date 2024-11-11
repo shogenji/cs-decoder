@@ -99,16 +99,26 @@ function loop() {
       }
   }
 
+  // for (let y = 0; y < dst.height; y++) {
+  //   for (let x = 0; x < dst.width; x++) {
+  //       let yy = Math.floor(y * (offscreen.height / canvas.height));
+  //       let xx = Math.floor(x * (offscreen.width / canvas.width));
+  //           dst.data[(y * dst.width + x) * 4 + 0] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 0];
+  //           dst.data[(y * dst.width + x) * 4 + 1] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 1];
+  //           dst.data[(y * dst.width + x) * 4 + 2] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 2];
+  //           dst.data[(y * dst.width + x) * 4 + 3] = 255;
+  //   }
+  // }
   for (let y = 0; y < dst.height; y++) {
     for (let x = 0; x < dst.width; x++) {
-        let yy = Math.floor(y * (offscreen.height / canvas.height));
+        let yy = Math.floor((Math.floor(y / interval) * interval) * (offscreen.height / canvas.height));
         let xx = Math.floor(x * (offscreen.width / canvas.width));
-            dst.data[(y * dst.width + x) * 4 + 0] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 0];
-            dst.data[(y * dst.width + x) * 4 + 1] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 1];
-            dst.data[(y * dst.width + x) * 4 + 2] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 2];
+            dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * src.width + xx + offset_x) * 4 + 0];
+            dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * src.width + xx + offset_x) * 4 + 1];
+            dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * src.width + xx + offset_x) * 4 + 2];
             dst.data[(y * dst.width + x) * 4 + 3] = 255;
     }
-}
+  }
 
     // decoded_ctx.drawImage(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0);
