@@ -23,7 +23,6 @@ let settings;
 let requestAnimationFrame = window.self.requestAnimationFrame;
 
 let decoded_ctx = canvas.getContext('2d');
-
 let offscreen_ctx = offscreen.getContext('2d');
 
 let interval = 3;
@@ -80,29 +79,42 @@ function loop() {
     // offscreen.width = video.width;
     // offscreen.height = video.height;
 
-    // offscreen_ctx.drawImage(video, 0, 0);
-    offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
+    offscreen_ctx.drawImage(video, 0, 0);
+    // offscreen_ctx.drawImage(video, offset_x, offset_y, offscreen.width, offscreen.height, 0, 0, offscreen.width, offscreen.height);
     let src = new Image();
+    let tmp = new Image();
     let dst = new Image();
 
     src = offscreen_ctx.getImageData(0, 0, offscreen.width, offscreen.height);
-    dst = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
+    tmp = offscreen_ctx.createImageData(offscreen.width, offscreen.height);
+    dst = decoded_ctx.createImageData(canvas.width, canvas.height);
 
-    for (let y = 0; y < dst.height; y++) {
-        for (let x = 0; x < dst.width; x++) {
-            let yy = Math.floor(y / interval) * interval;
-                dst.data[(y * dst.width + x) * 4 + 0] = src.data[(yy * dst.width + x) * 4 + 0];
-                dst.data[(y * dst.width + x) * 4 + 1] = src.data[(yy * dst.width + x) * 4 + 1];
-                dst.data[(y * dst.width + x) * 4 + 2] = src.data[(yy * dst.width + x) * 4 + 2];
-                dst.data[(y * dst.width + x) * 4 + 3] = 255;
-        }
+    for (let y = 0; y < tmp.height; y++) {
+      for (let x = 0; x < tmp.width; x++) {
+          let yy = Math.floor(y / interval) * interval;
+              tmp.data[(y * tmp.width + x) * 4 + 0] = src.data[(yy * tmp.width + x) * 4 + 0];
+              tmp.data[(y * tmp.width + x) * 4 + 1] = src.data[(yy * tmp.width + x) * 4 + 1];
+              tmp.data[(y * tmp.width + x) * 4 + 2] = src.data[(yy * tmp.width + x) * 4 + 2];
+              tmp.data[(y * tmp.width + x) * 4 + 3] = 255;
+      }
+  }
+
+  for (let y = 0; y < dst.height; y++) {
+    for (let x = 0; x < dst.width; x++) {
+        let yy = Math.floor(y * (offscreen.height / canvas.height));
+        let xx = Math.floor(x * (offscreen.width / canvas.width));
+            dst.data[(y * dst.width + x) * 4 + 0] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 0];
+            dst.data[(y * dst.width + x) * 4 + 1] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 1];
+            dst.data[(y * dst.width + x) * 4 + 2] = tmp.data[(yy * tmp.width + xx + offset_x) * 4 + 2];
+            dst.data[(y * dst.width + x) * 4 + 3] = 255;
     }
+}
 
     // decoded_ctx.drawImage(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0);
     // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.height * (canvas.height / canvas.width), offscreen.height);
-    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
-    decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.width, offscreen.height);
+    decoded_ctx.putImageData(dst, 0, 0, 0, 0, canvas.width, canvas.height);
+    // decoded_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.width, offscreen.height);
 
     // offscreen_ctx.putImageData(dst, 0, 0, 0, 0, offscreen.width, offscreen.height);
     // // decoded_ctx.drawImage(offscreen, 0, 0);
