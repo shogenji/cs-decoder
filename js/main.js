@@ -162,8 +162,15 @@ function setCanvasSize(theCanvas) {
   let innerH = window.innerHeight;
   // console.log("window.innerWidth: " + innerW + "  window.innerHeight: " + innerH);
 
-  theCanvas.setAttribute('width', innerW);
-  theCanvas.setAttribute('height', innerH);
+  // キャンバスサイズを正方形にする
+  if (innerW < innerH) {
+    theCanvas.setAttribute('width', innerW);
+    theCanvas.setAttribute('height', innerW);
+  } else {
+    theCanvas.setAttribute('width', innerH);
+    theCanvas.setAttribute('height', innerH);
+  }
+
 }
 
 function setOffscreenSize() {
