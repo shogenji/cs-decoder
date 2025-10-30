@@ -25,7 +25,7 @@ let requestAnimationFrame = window.self.requestAnimationFrame;
 let decoded_ctx = canvas.getContext('2d');
 let offscreen_ctx = offscreen.getContext('2d');
 
-let interval = 3;
+let interval = 1;
 let match = location.search.match(/i=(.*?)(&|$)/);
 if(match) {
     interval = decodeURIComponent(match[1]);
